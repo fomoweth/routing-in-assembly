@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.25;
 
-import {IUniswapV3SwapCallback} from "./IUniswapV3SwapCallback.sol";
+import {IUniswapV3SwapCallback} from "src/interfaces/external/Uniswap/V3/IUniswapV3SwapCallback.sol";
 
 interface IV3SwapRouter is IUniswapV3SwapCallback {
 	function exactInput(
