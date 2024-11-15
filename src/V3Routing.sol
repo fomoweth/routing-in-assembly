@@ -29,16 +29,19 @@ abstract contract V3Routing is IV3Routing, Constants {
 			}
 
 			function getPool(ptr, token0, token1, fee) -> pool {
+				// sort tokens if necessary
 				if gt(token0, token1) {
 					let temp := token0
 					token0 := token1
 					token1 := temp
 				}
 
+				// store the addresses of token0, token1, and fee to compute the salt of the pool
 				mstore(add(ptr, 0x15), token0)
 				mstore(add(ptr, 0x35), token1)
 				mstore(add(ptr, 0x55), fee)
 
+				// store the address of the factory, computed salt, and the init code hash of the pool
 				mstore(ptr, add(hex"ff", shl(0x58, UNISWAP_V3_FACTORY)))
 				mstore(add(ptr, 0x15), keccak256(add(ptr, 0x15), 0x60))
 				mstore(add(ptr, 0x35), UNISWAP_V3_POOL_INIT_CODE_HASH)
@@ -224,16 +227,19 @@ abstract contract V3Routing is IV3Routing, Constants {
 			}
 
 			function getPool(ptr, token0, token1, fee) -> pool {
+				// sort tokens if necessary
 				if gt(token0, token1) {
 					let temp := token0
 					token0 := token1
 					token1 := temp
 				}
 
+				// store the addresses of token0, token1, and fee to compute the salt of the pool
 				mstore(add(ptr, 0x15), token0)
 				mstore(add(ptr, 0x35), token1)
 				mstore(add(ptr, 0x55), fee)
 
+				// store the address of the factory, computed salt, and the init code hash of the pool
 				mstore(ptr, add(hex"ff", shl(0x58, UNISWAP_V3_FACTORY)))
 				mstore(add(ptr, 0x15), keccak256(add(ptr, 0x15), 0x60))
 				mstore(add(ptr, 0x35), UNISWAP_V3_POOL_INIT_CODE_HASH)
@@ -332,22 +338,25 @@ abstract contract V3Routing is IV3Routing, Constants {
 
 			function decodePool(offset) -> tokenOut, tokenIn, fee {
 				let firstWord := calldataload(offset)
-				tokenOut := shr(0x60, firstWord)
+				tokenOut := shr(0x60, firstWord) //
 				fee := and(shr(0x48, firstWord), 0xffffff)
 				tokenIn := shr(0x60, calldataload(add(offset, NEXT_OFFSET)))
 			}
 
 			function getPool(ptr, token0, token1, fee) -> pool {
+				// sort tokens if necessary
 				if gt(token0, token1) {
 					let temp := token0
 					token0 := token1
 					token1 := temp
 				}
 
+				// store the addresses of token0, token1, and fee to compute the salt of the pool
 				mstore(add(ptr, 0x15), token0)
 				mstore(add(ptr, 0x35), token1)
 				mstore(add(ptr, 0x55), fee)
 
+				// store the address of the factory, computed salt, and the init code hash of the pool
 				mstore(ptr, add(hex"ff", shl(0x58, UNISWAP_V3_FACTORY)))
 				mstore(add(ptr, 0x15), keccak256(add(ptr, 0x15), 0x60))
 				mstore(add(ptr, 0x35), UNISWAP_V3_POOL_INIT_CODE_HASH)
