@@ -3,7 +3,7 @@ pragma solidity ^0.8.25;
 
 import {Currency} from "src/types/Currency.sol";
 
-interface IV2SwapRouter {
+interface IV2Routing {
 	function swapExactTokensForTokens(
 		Currency[] calldata path,
 		address recipient,

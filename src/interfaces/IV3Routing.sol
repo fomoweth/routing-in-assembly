@@ -3,7 +3,7 @@ pragma solidity ^0.8.25;
 
 import {IUniswapV3SwapCallback} from "src/interfaces/external/Uniswap/V3/IUniswapV3SwapCallback.sol";
 
-interface IV3SwapRouter is IUniswapV3SwapCallback {
+interface IV3Routing is IUniswapV3SwapCallback {
 	function exactInput(
 		bytes calldata path,
 		address recipient,
