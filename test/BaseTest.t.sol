@@ -26,7 +26,7 @@ abstract contract BaseTest is Test {
 	Routing routing;
 
 	function setUp() public virtual {
-		fork(true);
+		fork();
 
 		vm.label(address(routing = new Routing()), "Routing");
 
@@ -49,9 +49,8 @@ abstract contract BaseTest is Test {
 		deal(Currency.unwrap(currency), account, amount);
 	}
 
-	function fork(bool forkOnBlock) internal {
-		uint256 forkBlock;
-		if (forkOnBlock) forkBlock = vm.envOr("FORK_BLOCK_ETHEREUM", forkBlock);
+	function fork() internal {
+		uint256 forkBlock = vm.envOr("FORK_BLOCK_ETHEREUM", uint256(0));
 
 		if (forkBlock != 0) {
 			vm.createSelectFork(vm.envString("RPC_ETHEREUM"), forkBlock);
